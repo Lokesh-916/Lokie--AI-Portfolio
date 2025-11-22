@@ -1,10 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Calendar } from 'lucide-react';
+import { ExternalLink, Github, Calendar, X } from 'lucide-react';
 import Image from 'next/image';
+import { useState } from 'react';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 
 export function ProjectsShowcase() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   const projects = [
     {
       title: 'Coming Soon',
@@ -13,6 +17,26 @@ export function ProjectsShowcase() {
       tech: ['In Progress', 'Innovation', 'Coming Soon'],
       year: '2025',
       links: [],
+    },
+    {
+      title: 'DineAssist',
+      description: 'An AI-powered restaurant recommendation system built during the OpenAI Hackathon. The project uses a Retrieval-Augmented Generation (RAG) pipeline to embed and store restaurant menu data, enabling the model to fetch precise dish-level information during conversations. By combining semantic search, user-mood based intent detection, and LLM-driven reasoning, DineAssist generates personalized suggestions for cravings, diets, and price ranges. The system integrates menu parsing, vector embeddings, and contextual retrieval to make meal discovery smarter and more interactive.',
+      image: '/dineassist_temp.png',
+      tech: ['LangChain', 'FAISS', 'Groq', 'Flask', 'HTML', 'CSS', 'JavaScript'],
+      year: 'Oct 2025',
+      links: [
+        { name: 'GitHub', url: 'https://github.com/Lokesh-916/DineAssist', icon: Github },
+      ],
+    },
+    {
+      title: 'GPU Kernel Execution Time Prediction',
+      description: 'A performance-modeling project where I built an ML system that predicts the execution time of a 2048×2048 SGEMM kernel using 14 configurable GPU parameters. The model also estimates MNIST training time and power consumption as reference workloads, enabling fast performance forecasting without executing the kernels. This project combines GPU profiling, feature extraction, regression modeling, and power-runtime analysis for practical system-level optimization.',
+      image: '/sgemm_preview.png',
+      tech: ['Scikit Learn', 'Random Forest', 'Pandas', 'NumPy', 'HTML', 'CSS', 'JavaScript'],
+      year: 'Oct 2025',
+      links: [
+        { name: 'GitHub', url: 'https://github.com/Lokesh-916/GPU-Kernel-Execution-Time-Prediction', icon: Github },
+      ],
     },
     {
       title: 'Voice-Based Speaker Recognition Model ',
@@ -67,7 +91,10 @@ export function ProjectsShowcase() {
               className="group relative overflow-hidden rounded-xl border bg-white/30 backdrop-blur-lg transition-all duration-300 hover:bg-white/40 dark:bg-neutral-800/30 dark:hover:bg-neutral-800/40"
             >
               {/* Project Image */}
-              <div className="relative h-48 overflow-hidden">
+              <div 
+                className="relative h-48 overflow-hidden cursor-pointer"
+                onClick={() => setSelectedImage(project.image)}
+              >
                 <Image
                   src={project.image}
                   alt={project.title}
@@ -125,6 +152,35 @@ export function ProjectsShowcase() {
           ))}
         </div>
       </motion.div>
+
+      {/* Image Modal */}
+      <Dialog open={selectedImage !== null} onOpenChange={(open) => !open && setSelectedImage(null)}>
+        <DialogContent 
+          className="!max-w-[90vw] !w-[90vw] sm:!max-w-[85vw] md:!max-w-[80vw] lg:!max-w-[75vw] xl:!max-w-[70vw] !p-0 !bg-transparent !border-none !shadow-none"
+          style={{ maxWidth: '90vw', width: '90vw' } as React.CSSProperties}
+        >
+          <DialogTitle className="sr-only">Project Preview Image</DialogTitle>
+          {selectedImage && (
+            <div className="relative w-full h-auto max-h-[85vh] flex items-center justify-center">
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="absolute top-4 right-4 z-50 rounded-full bg-black/50 hover:bg-black/70 text-white p-2 transition-colors"
+                aria-label="Close"
+              >
+                <X className="h-5 w-5" />
+              </button>
+              <Image
+                src={selectedImage}
+                alt="Full size preview"
+                width={1400}
+                height={1000}
+                className="w-full h-auto max-w-full object-contain rounded-lg"
+                unoptimized
+              />
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

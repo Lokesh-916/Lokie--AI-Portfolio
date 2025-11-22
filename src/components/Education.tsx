@@ -11,7 +11,7 @@ export function Education() {
       location: 'Kurnool, Andhra Pradesh',
       period: '2023 - Present',
       description: 'Peer-to-peer learning program focused on software development, algorithms, and system administration.',
-      achievements: ['DSA', 'DBMS', 'AI/ML', 'Computer Networking', 'Compiler Design', 'Operating Systems', 'Probability and Statistics'],
+      achievements: ['DSA', 'DBMS', 'AI/ML', 'Computer Networking', 'Compiler Design', 'Operating Systems', 'Probability and Statistics', 'Data Analysis & Visualization', 'Data Mining'],
       gpa: '8.8/10',
     },
     {

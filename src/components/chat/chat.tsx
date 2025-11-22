@@ -135,19 +135,36 @@ const Chat = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to send message');
+        // Try to read the error message from the response
+        let errorMessage = 'Failed to send message';
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorData.message || errorMessage;
+        } catch {
+          // If response is not JSON, try to read as text
+          const errorText = await response.text();
+          errorMessage = errorText || errorMessage;
+        }
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
       
+      // Check if the response contains an error field
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
       const aiMsg: Message = {
         id: Date.now().toString() + Math.random().toString(36).slice(2),
         role: 'assistant',
-        content: data.content,
+        content: data.content || '',
       };
       setMessages((prev) => [...prev, aiMsg]);
     } catch (err: any) {
-      toast.error('Error: ' + (err?.message || 'Unknown error'));
+      const errorMessage = err?.message || 'Unknown error occurred';
+      toast.error('Error: ' + errorMessage);
+      console.error('Chat error:', err);
     } finally {
       setIsTalking(false);
       setLoadingSubmit(false);

@@ -15,6 +15,14 @@ export function Experience() {
     },
     {
       title: 'AI Intern',
+      company: 'Infosys SpringBoard',
+      location: 'Remote',
+      period: 'Nov 2025 - Jan 2026',
+      description: "An 8-week mentored AI project where I built a mood-adaptive music generation system using Meta's MusicGen model. Users can describe their vibe through text prompts, and the system composes original audio tracks that match their mood — from chill lo-fi to energetic beats.",
+      technologies: ['Torch', 'MusicGen', 'OpenAI', 'Streamlit', 'Transformers'],
+    },
+    {
+      title: 'AI Intern',
       company: 'Samsung Innovation Campus',
       location: 'Kurnool',
       period: 'Dec 2024 - Mar 2025',

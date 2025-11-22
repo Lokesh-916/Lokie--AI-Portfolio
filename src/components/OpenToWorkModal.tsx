@@ -21,6 +21,7 @@ const profile = {
     'BTech AI & DS Student',
     'Open to Internships',
     'Project Builder',
+    'Data Analyst',
   ],
 };
 
