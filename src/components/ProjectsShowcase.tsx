@@ -51,12 +51,13 @@ export function ProjectsShowcase() {
     },
     {
       title: 'SevaSetu',
-      description: 'Coming soon — details will be added shortly.',
-      image: '/Coming-Soon.png',
-      tech: ['Coming Soon'],
+      description: 'An AI-powered government form assistant for Indian citizens that eliminates preventable application rejections. Combines a RAG pipeline (sentence-transformers + AWS Bedrock Claude 3.5 Sonnet), EasyOCR document extraction, and a scikit-learn rejection-risk scoring engine to validate documents, auto-fill forms from uploaded IDs, and answer queries in 9 Indian languages. Escalates to a human officer when AI confidence drops below a configurable threshold. Deployed with React on Vercel and FastAPI on AWS EC2.',
+      image: '/sevasetu.png',
+      tech: ['React 19', 'TypeScript', 'FastAPI', 'AWS Bedrock', 'Claude 3.5 Sonnet', 'EasyOCR', 'RAG', 'scikit-learn', 'SQLAlchemy', 'Docker', 'Groq'],
       year: '2025',
       links: [
         { name: 'GitHub', url: 'https://github.com/jahnaviyakkala/SevaSetu', icon: Github },
+        { name: 'Live Demo', url: 'https://sevasetu-demo.vercel.app/', icon: ExternalLink },
       ],
     },
     {
