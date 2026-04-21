@@ -21,7 +21,6 @@ export function ProjectsShowcase() {
     {
       title: 'AdaptIQ',
       description: 'An AI-powered adaptive learning and career guidance platform that creates a dynamic loop between a user\'s skills, aspirations, and real-time AI mentorship. Dynamically generates personalized quizzes that scale difficulty based on inferred comprehension, visualizes career roadmaps and skill trees via Mermaid.js, and ingests past learning history from ChatGPT/Gemini exports via Multer. Uses a strict 1500-token context window strategy with rolling summaries to maintain long-term behavioral profiles without bloating LLM context.',
-      image: '/Coming-Soon.png',
       image: '/adaptiq.png',
       tech: ['React 19', 'Vite', 'Tailwind CSS v4', 'Express.js', 'MongoDB', 'Mongoose', 'Groq API', 'LLaMA 3.3 70B', 'Mermaid.js', 'Multer', 'React Router v7'],
       year: '2025',
