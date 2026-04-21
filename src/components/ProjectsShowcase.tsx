@@ -40,9 +40,9 @@ export function ProjectsShowcase() {
     },
     {
       title: 'Croporia',
-      description: 'Coming soon — details will be added shortly.',
+      description: 'A full-stack, AI-powered agricultural intelligence platform built for Indian farmers. Consolidates crop science, real-time mandi prices, RAG-powered agronomy guidance, computer-vision pest & disease detection, hold-or-sell price forecasting, P2P crop marketplace, community forum, and a personalized daily feed — all in one place. Built on a three-service architecture: React SPA, Express + MongoDB REST API, and a FastAPI AI/ML backend with LangChain, FAISS, and Groq LLaMA 3.3 70B.',
       image: '/croporia.png',
-      tech: ['Coming Soon'],
+      tech: ['React 19', 'Vite', 'Tailwind CSS', 'Express.js', 'MongoDB', 'FastAPI', 'LangChain', 'FAISS', 'Groq', 'RAG', 'Plant.id API', 'Python'],
       year: '2025',
       links: [
         { name: 'GitHub', url: 'https://github.com/Lokesh-916/Croporia', icon: Github },
