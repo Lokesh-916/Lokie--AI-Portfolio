@@ -15,13 +15,13 @@ export function shouldSendEmail(messages: ConversationMessage[]): boolean {
 export async function sendConversationEmailIfNeeded(messages: ConversationMessage[]): Promise<void> {
   try {
     if (!shouldSendEmail(messages)) {
-      console.log('Email already sent or currently sending, skipping...');
+
       return;
     }
 
     // Mark as sending to prevent concurrent requests
     emailSending = true;
-    console.log('Attempting to send email with', messages.length, 'messages');
+
 
     const response = await fetch('/api/email', {
       method: 'POST',
@@ -34,7 +34,7 @@ export async function sendConversationEmailIfNeeded(messages: ConversationMessag
       }),
     });
 
-    console.log('Email API response status:', response.status);
+
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -42,7 +42,7 @@ export async function sendConversationEmailIfNeeded(messages: ConversationMessag
       emailSending = false; // Reset on error so it can retry
     } else {
       const result = await response.json();
-      console.log('Conversation email sent successfully:', result);
+
       emailSent = true; // Mark as sent to prevent duplicates
       emailSending = false; // Reset sending flag
     }

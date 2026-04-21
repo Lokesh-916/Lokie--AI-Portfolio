@@ -31,7 +31,7 @@ export async function sendConversationEmail(data: ConversationEmailData) {
       html: generateEmailTemplate(conversationHtml, userInfo),
     });
 
-    console.log('Email sent successfully:', emailResult);
+
     return { success: true, id: emailResult.data?.id };
   } catch (error) {
     console.error('Failed to send email:', error);

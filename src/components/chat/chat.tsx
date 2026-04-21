@@ -259,7 +259,6 @@ const Chat = () => {
 
   // Handler for Go to Home (Education) button
   const goToHomeEducation = () => {
-    console.log('Button clicked! Navigating to home...');
     
     // Send email before navigating away
     if (messages.length > 0) {
@@ -288,7 +287,6 @@ const Chat = () => {
       {/* Go to Home (Education) Button */}
       <button
         onClick={() => {
-          console.log('Button clicked!');
           goToHomeEducation();
         }}
         className="fixed top-6 left-6 z-[9999] bg-white hover:bg-gray-100 text-black p-3 rounded-full shadow-lg transition-all cursor-pointer border border-gray-200"

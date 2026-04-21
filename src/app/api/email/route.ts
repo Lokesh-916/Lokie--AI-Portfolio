@@ -6,7 +6,7 @@ const sentEmails = new Set<string>();
 
 export async function POST(req: NextRequest) {
   try {
-    console.log('Email API called');
+
     
     // Check if Resend API key is configured
     if (!process.env.RESEND_API_KEY) {
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { messages, userInfo, sessionId }: ConversationEmailData & { sessionId?: string } = body;
 
-    console.log('Received messages:', messages.length, 'Session ID:', sessionId);
+
 
     // Validate required data
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
 
     // Check if we've already sent an email for this session
     if (sessionId && sentEmails.has(sessionId)) {
-      console.log('Email already sent for session:', sessionId);
+
       return NextResponse.json(
         { success: true, message: 'Email already sent for this session' },
         { status: 200 }
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
       // Mark this session as sent
       if (sessionId) {
         sentEmails.add(sessionId);
-        console.log('Marked session as sent:', sessionId);
+
       }
       
       return NextResponse.json(

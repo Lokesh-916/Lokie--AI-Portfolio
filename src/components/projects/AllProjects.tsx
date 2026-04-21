@@ -4,14 +4,9 @@ import { data } from "@/components/projects/Data";
 
 
 export default function AllProjects() {
-  console.log('AllProjects component rendered');
-  console.log('Total data length:', data.length);
-  console.log('First item:', data[0]);
-  
   const cards = data.map((card, index) => (
     <Card key={card.src} card={card} index={index} layout={true} />
   ));
-  console.log('Number of cards created:', cards.length);
 
   return (
     <div className="w-full h-full pt-8">
