@@ -23,7 +23,7 @@ export function ProjectsShowcase() {
       description: 'An AI-powered adaptive learning and career guidance platform that creates a dynamic loop between a user\'s skills, aspirations, and real-time AI mentorship. Dynamically generates personalized quizzes that scale difficulty based on inferred comprehension, visualizes career roadmaps and skill trees via Mermaid.js, and ingests past learning history from ChatGPT/Gemini exports via Multer. Uses a strict 1500-token context window strategy with rolling summaries to maintain long-term behavioral profiles without bloating LLM context.',
       image: '/adaptiq.png',
       tech: ['React 19', 'Vite', 'Tailwind CSS v4', 'Express.js', 'MongoDB', 'Mongoose', 'Groq API', 'LLaMA 3.3 70B', 'Mermaid.js', 'Multer', 'React Router v7'],
-      year: '2025',
+      year: 'Mar 2026',
       links: [
         { name: 'GitHub', url: 'https://github.com/karthikpappala/AdaptIQ', icon: Github },
       ],
@@ -43,7 +43,7 @@ export function ProjectsShowcase() {
       description: 'A full-stack, AI-powered agricultural intelligence platform built for Indian farmers. Consolidates crop science, real-time mandi prices, RAG-powered agronomy guidance, computer-vision pest & disease detection, hold-or-sell price forecasting, P2P crop marketplace, community forum, and a personalized daily feed — all in one place. Built on a three-service architecture: React SPA, Express + MongoDB REST API, and a FastAPI AI/ML backend with LangChain, FAISS, and Groq LLaMA 3.3 70B.',
       image: '/croporia.png',
       tech: ['React 19', 'Vite', 'Tailwind CSS', 'Express.js', 'MongoDB', 'FastAPI', 'LangChain', 'FAISS', 'Groq', 'RAG', 'Plant.id API', 'Python'],
-      year: '2025',
+      year: 'Apr 2026',
       links: [
         { name: 'GitHub', url: 'https://github.com/Lokesh-916/Croporia', icon: Github },
       ],
@@ -53,7 +53,7 @@ export function ProjectsShowcase() {
       description: 'An AI-powered government form assistant for Indian citizens that eliminates preventable application rejections. Combines a RAG pipeline (sentence-transformers + AWS Bedrock Claude 3.5 Sonnet), EasyOCR document extraction, and a scikit-learn rejection-risk scoring engine to validate documents, auto-fill forms from uploaded IDs, and answer queries in 9 Indian languages. Escalates to a human officer when AI confidence drops below a configurable threshold. Deployed with React on Vercel and FastAPI on AWS EC2.',
       image: '/sevasetu.png',
       tech: ['React 19', 'TypeScript', 'FastAPI', 'AWS Bedrock', 'Claude 3.5 Sonnet', 'EasyOCR', 'RAG', 'scikit-learn', 'SQLAlchemy', 'Docker', 'Groq'],
-      year: '2025',
+      year: 'Jan 2026',
       links: [
         { name: 'GitHub', url: 'https://github.com/jahnaviyakkala/SevaSetu', icon: Github },
         { name: 'Live Demo', url: 'https://sevasetu-demo.vercel.app/', icon: ExternalLink },
@@ -64,7 +64,7 @@ export function ProjectsShowcase() {
       description: 'A full-stack event operations platform connecting organizers, volunteers, and clients on a single system. Replaces ad-hoc workflows with structured event creation, role-based volunteer enrollment, client offer negotiation, expense tracking, advance payment with counter-negotiation, real-time 1:1 and group messaging, incident reporting, and an analytics dashboard. Features a volunteer XP/badge reputation system with 6 rank tiers and 9 badge definitions, organizer composite ratings, and a Bird\'s Eye View for public volunteer assignment breakdowns.',
       image: '/eventhive.png',
       tech: ['Node.js', 'Express.js', 'MongoDB', 'JWT', 'Multer', 'Tailwind CSS v4', 'Vanilla JS', 'Mongoose', 'bcryptjs', 'Helmet'],
-      year: '2025',
+      year: 'Feb 2026',
       links: [
         { name: 'GitHub', url: 'https://github.com/Lokesh-916/EventHive', icon: Github },
       ],
