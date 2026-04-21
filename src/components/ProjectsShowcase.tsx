@@ -60,9 +60,9 @@ export function ProjectsShowcase() {
     },
     {
       title: 'EventHive',
-      description: 'Coming soon — details will be added shortly.',
+      description: 'A full-stack event operations platform connecting organizers, volunteers, and clients on a single system. Replaces ad-hoc workflows with structured event creation, role-based volunteer enrollment, client offer negotiation, expense tracking, advance payment with counter-negotiation, real-time 1:1 and group messaging, incident reporting, and an analytics dashboard. Features a volunteer XP/badge reputation system with 6 rank tiers and 9 badge definitions, organizer composite ratings, and a Bird\'s Eye View for public volunteer assignment breakdowns.',
       image: '/eventhive.png',
-      tech: ['Coming Soon'],
+      tech: ['Node.js', 'Express.js', 'MongoDB', 'JWT', 'Multer', 'Tailwind CSS v4', 'Vanilla JS', 'Mongoose', 'bcryptjs', 'Helmet'],
       year: '2025',
       links: [
         { name: 'GitHub', url: 'https://github.com/Lokesh-916/EventHive', icon: Github },
