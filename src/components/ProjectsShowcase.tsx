@@ -19,6 +19,66 @@ export function ProjectsShowcase() {
       links: [],
     },
     {
+      title: 'AdaptIQ',
+      description: 'Coming soon — details will be added shortly.',
+      image: '/Coming-Soon.png',
+      tech: ['Coming Soon'],
+      year: '2025',
+      links: [
+        { name: 'GitHub', url: 'https://github.com/karthikpappala/AdaptIQ', icon: Github },
+      ],
+    },
+    {
+      title: 'AbleEat',
+      description: 'Coming soon — details will be added shortly.',
+      image: '/Coming-Soon.png',
+      tech: ['Coming Soon'],
+      year: '2025',
+      links: [
+        { name: 'GitHub', url: 'https://github.com/Lokesh-916/AbleEat', icon: Github },
+      ],
+    },
+    {
+      title: 'Croporia',
+      description: 'Coming soon — details will be added shortly.',
+      image: '/Coming-Soon.png',
+      tech: ['Coming Soon'],
+      year: '2025',
+      links: [
+        { name: 'GitHub', url: 'https://github.com/Lokesh-916/Croporia', icon: Github },
+      ],
+    },
+    {
+      title: 'SevaSetu',
+      description: 'Coming soon — details will be added shortly.',
+      image: '/Coming-Soon.png',
+      tech: ['Coming Soon'],
+      year: '2025',
+      links: [
+        { name: 'GitHub', url: 'https://github.com/jahnaviyakkala/SevaSetu', icon: Github },
+      ],
+    },
+    {
+      title: 'EventHive',
+      description: 'Coming soon — details will be added shortly.',
+      image: '/Coming-Soon.png',
+      tech: ['Coming Soon'],
+      year: '2025',
+      links: [
+        { name: 'GitHub', url: 'https://github.com/Lokesh-916/EventHive', icon: Github },
+      ],
+    },
+    {
+      title: 'Deep Dehazing',
+      description: 'Implemented a Transformer-based image dehazing system using U-Net with MiT-B3 encoder, achieving 20.53 dB PSNR and 0.9109 SSIM on 110 validation images. Optimized CPU inference pipeline to 580 ms/image, enabling near-real-time haze removal without GPU hardware. Trained on paired hazy/clear datasets using hybrid reconstruction + perceptual loss, improving average PSNR by 9+ dB. Deployed a Flask web application with real-time upload, visualization, and automated PSNR/SSIM scoring across 50+ samples.',
+      image: '/dehaze.png',
+      tech: ['Python', 'PyTorch', 'Transformers', 'U-Net', 'MiT-B3', 'Flask'],
+      year: 'Feb 2026',
+      links: [
+        { name: 'GitHub', url: 'https://github.com/karthikpappala/Deep-Dehazing', icon: Github },
+      ],
+    },
+    {
       title: 'DineAssist',
       description: 'An AI-powered restaurant recommendation system built during the OpenAI Hackathon. The project uses a Retrieval-Augmented Generation (RAG) pipeline to embed and store restaurant menu data, enabling the model to fetch precise dish-level information during conversations. By combining semantic search, user-mood based intent detection, and LLM-driven reasoning, DineAssist generates personalized suggestions for cravings, diets, and price ranges. The system integrates menu parsing, vector embeddings, and contextual retrieval to make meal discovery smarter and more interactive.',
       image: '/dineassist_temp.png',
