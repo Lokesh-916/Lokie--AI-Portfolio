@@ -30,10 +30,10 @@ export function ProjectsShowcase() {
     },
     {
       title: 'AbleEat',
-      description: 'Coming soon — details will be added shortly.',
-      image: '/Coming-Soon.png',
-      tech: ['Coming Soon'],
-      year: '2025',
+      description: 'Built an end-to-end computer vision system that scans entire grocery shelves and highlights food items safe to consume based on dietary restrictions, allergies, and health goals. Fine-tuned a ResNet-based classifier on 36 fruit and vegetable classes, achieving 98% classification accuracy. Implemented a Vision + OCR pipeline using Google Vision API to localize product regions and extract ingredient labels with 90% text extraction accuracy. Designed an LLM-driven ingredient analysis engine to match extracted labels against user-defined allergens, macros, and dietary rules, improving unsafe-item recall by 30%.',
+      image: '/ableeat.png',
+      tech: ['Python', 'OpenCV', 'RAG', 'Google Vision API', 'OCR', 'LLMs', 'ResNet'],
+      year: 'Dec 2025',
       links: [
         { name: 'GitHub', url: 'https://github.com/Lokesh-916/AbleEat', icon: Github },
       ],
@@ -41,7 +41,7 @@ export function ProjectsShowcase() {
     {
       title: 'Croporia',
       description: 'Coming soon — details will be added shortly.',
-      image: '/Coming-Soon.png',
+      image: '/croporia.png',
       tech: ['Coming Soon'],
       year: '2025',
       links: [
@@ -61,7 +61,7 @@ export function ProjectsShowcase() {
     {
       title: 'EventHive',
       description: 'Coming soon — details will be added shortly.',
-      image: '/Coming-Soon.png',
+      image: '/eventhive.png',
       tech: ['Coming Soon'],
       year: '2025',
       links: [
