@@ -67,6 +67,7 @@ export function ProjectsShowcase() {
       year: 'Feb 2026',
       links: [
         { name: 'GitHub', url: 'https://github.com/Lokesh-916/EventHive', icon: Github },
+        { name: 'Live Demo', url: 'https://eventhive-8yfl.onrender.com', icon: ExternalLink },
       ],
     },
     {
