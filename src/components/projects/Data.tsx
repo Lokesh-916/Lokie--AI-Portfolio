@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { Image as Img } from 'lucide-react';
 import { ChevronRight, Link } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-import { url } from 'inspector';
 
 // Enhanced project content array with all projects
 const PROJECT_CONTENT = [
@@ -13,6 +12,85 @@ const PROJECT_CONTENT = [
     techStack: ['In Progress', 'Innovation', 'Coming Soon'],
     date: '2025',
     links: [],
+    images: [],
+  },
+  {
+    title: 'AdaptIQ',
+    description: 'Coming soon — details will be added shortly.',
+    techStack: ['Coming Soon'],
+    date: '2025',
+    links: [
+      {
+        name: 'GitHub',
+        url: 'https://github.com/karthikpappala/AdaptIQ',
+      },
+    ],
+    images: [],
+  },
+  {
+    title: 'AbleEat',
+    description: 'Coming soon — details will be added shortly.',
+    techStack: ['Coming Soon'],
+    date: '2025',
+    links: [
+      {
+        name: 'GitHub',
+        url: 'https://github.com/Lokesh-916/AbleEat',
+      },
+    ],
+    images: [],
+  },
+  {
+    title: 'Croporia',
+    description: 'Coming soon — details will be added shortly.',
+    techStack: ['Coming Soon'],
+    date: '2025',
+    links: [
+      {
+        name: 'GitHub',
+        url: 'https://github.com/Lokesh-916/Croporia',
+      },
+    ],
+    images: [],
+  },
+  {
+    title: 'SevaSetu',
+    description: 'Coming soon — details will be added shortly.',
+    techStack: ['Coming Soon'],
+    date: '2025',
+    links: [
+      {
+        name: 'GitHub',
+        url: 'https://github.com/jahnaviyakkala/SevaSetu',
+      },
+    ],
+    images: [],
+  },
+  {
+    title: 'EventHive',
+    description: 'Coming soon — details will be added shortly.',
+    techStack: ['Coming Soon'],
+    date: '2025',
+    links: [
+      {
+        name: 'GitHub',
+        url: 'https://github.com/Lokesh-916/EventHive',
+      },
+    ],
+    images: [],
+  },
+  {
+    title: 'Deep Dehazing',
+    description:
+      'Implemented a Transformer-based image dehazing system using U-Net with MiT-B3 encoder, achieving 20.53 dB PSNR and 0.9109 SSIM on 110 validation images. Optimized CPU inference pipeline to 580 ms/image, enabling near-real-time haze removal without GPU hardware. Trained on paired hazy/clear datasets using hybrid reconstruction + perceptual loss, improving average PSNR by 9+ dB. Deployed a Flask web application with real-time upload, visualization, and automated PSNR/SSIM scoring across 50+ samples.',
+    techStack: ['Python', 'PyTorch', 'Transformers', 'U-Net', 'MiT-B3', 'Flask'],
+    date: 'Feb 2026',
+    links: [
+      {
+        name: 'GitHub',
+        url: 'https://github.com/karthikpappala/Deep-Dehazing',
+      },
+    ],
     images: [],
   },
   {
@@ -451,8 +529,44 @@ export const data = [
   {
     category: 'Coming Soon',
     title: 'Coming Soon',
-    src: '/ratepreview.png',
+    src: '/Coming-Soon.png',
     content: <ProjectContent project={{ title: 'Coming Soon' }} />,
+  },
+  {
+    category: 'Project',
+    title: 'AdaptIQ',
+    src: '/Coming-Soon.png',
+    content: <ProjectContent project={{ title: 'AdaptIQ' }} />,
+  },
+  {
+    category: 'Project',
+    title: 'AbleEat',
+    src: '/Coming-Soon.png',
+    content: <ProjectContent project={{ title: 'AbleEat' }} />,
+  },
+  {
+    category: 'Project',
+    title: 'Croporia',
+    src: '/Coming-Soon.png',
+    content: <ProjectContent project={{ title: 'Croporia' }} />,
+  },
+  {
+    category: 'Project',
+    title: 'SevaSetu',
+    src: '/Coming-Soon.png',
+    content: <ProjectContent project={{ title: 'SevaSetu' }} />,
+  },
+  {
+    category: 'Project',
+    title: 'EventHive',
+    src: '/Coming-Soon.png',
+    content: <ProjectContent project={{ title: 'EventHive' }} />,
+  },
+  {
+    category: 'Deep Learning',
+    title: 'Deep Dehazing',
+    src: '/dehaze.png',
+    content: <ProjectContent project={{ title: 'Deep Dehazing' }} />,
   },
   {
     category: 'Startup Project',
