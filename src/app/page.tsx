@@ -76,13 +76,6 @@ export default function Home() {
     const img = new window.Image();
     img.src = '/landing-memojis.png';
 
-    // Précharger les vidéos aussi
-    const linkWebm = document.createElement('link');
-    linkWebm.rel = 'preload';
-    linkWebm.as = 'video';
-    linkWebm.href = '/final_memojis.webm';
-    document.head.appendChild(linkWebm);
-
     const onScroll = () => {
       if (window.scrollY > 40) setShowArrow(false);
       else setShowArrow(true);
