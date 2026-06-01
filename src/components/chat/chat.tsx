@@ -199,26 +199,32 @@ const Chat = () => {
     }
   }, [isTalking]);
 
-  // Page leave detection - send email when user leaves
+  // Page leave detection - send email when user leaves or goes idle
   useEffect(() => {
     // Reset email flag when component mounts (new session)
     resetEmailSentFlag();
 
     const handleBeforeUnload = () => {
-      if (messages.length > 0) {
-        // Only send user/assistant messages to backend
-        const filteredMessages = messages.filter(m => m.role === 'user' || m.role === 'assistant') as { role: 'user' | 'assistant'; content: string; }[];
+      if (messagesRef.current.length > 0) {
+        const filteredMessages = messagesRef.current.filter(m => m.role === 'user' || m.role === 'assistant') as { role: 'user' | 'assistant'; content: string; }[];
         sendConversationEmailIfNeeded(filteredMessages);
       }
     };
 
-    // Add beforeunload listener
     window.addEventListener('beforeunload', handleBeforeUnload);
-
-    // Cleanup
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
+  }, []);
+
+  // Send email after 2 minutes of inactivity
+  useEffect(() => {
+    if (messages.length === 0) return;
+    const timer = setTimeout(() => {
+      const filteredMessages = messages.filter(m => m.role === 'user' || m.role === 'assistant') as { role: 'user' | 'assistant'; content: string; }[];
+      sendConversationEmailIfNeeded(filteredMessages);
+    }, 2 * 60 * 1000);
+    return () => clearTimeout(timer);
   }, [messages]);
 
   // Submit handler
