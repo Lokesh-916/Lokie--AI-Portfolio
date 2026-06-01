@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { sendConversationEmailIfNeeded, resetEmailSentFlag } from '@/lib/chat-utils';
 
 // Component imports
@@ -377,7 +378,22 @@ const Chat = () => {
                     {msg.component ? (
                       msg.component
                     ) : msg.role === 'assistant' ? (
-                      <ReactMarkdown>{msg.content || ''}</ReactMarkdown>
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={{
+                          table: ({ children }) => (
+                            <div className="overflow-x-auto my-2">
+                              <table className="min-w-full border-collapse text-sm">{children}</table>
+                            </div>
+                          ),
+                          th: ({ children }) => (
+                            <th className="border border-neutral-300 dark:border-neutral-600 bg-neutral-100 dark:bg-neutral-800 px-3 py-2 text-left font-semibold">{children}</th>
+                          ),
+                          td: ({ children }) => (
+                            <td className="border border-neutral-300 dark:border-neutral-600 px-3 py-2">{children}</td>
+                          ),
+                        }}
+                      >{msg.content || ''}</ReactMarkdown>
                     ) : (
                       <div>{msg.content}</div>
                     )}
