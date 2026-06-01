@@ -199,14 +199,17 @@ const Chat = () => {
     }
   }, [isTalking]);
 
-  // Page leave detection - send email when user leaves or goes idle
+  // Page leave detection - send email when user leaves
   useEffect(() => {
     // Reset email flag when component mounts (new session)
     resetEmailSentFlag();
 
     const handleBeforeUnload = () => {
-      if (messagesRef.current.length > 0) {
-        const filteredMessages = messagesRef.current.filter(m => m.role === 'user' || m.role === 'assistant') as { role: 'user' | 'assistant'; content: string; }[];
+      const current = messagesRef.current;
+      // Only send if not mid-flight and last message is from AI (complete exchange)
+      const lastMsg = current[current.length - 1];
+      if (current.length > 0 && lastMsg?.role === 'assistant' && lastMsg?.content) {
+        const filteredMessages = current.filter(m => m.role === 'user' || m.role === 'assistant') as { role: 'user' | 'assistant'; content: string; }[];
         sendConversationEmailIfNeeded(filteredMessages);
       }
     };
@@ -217,9 +220,12 @@ const Chat = () => {
     };
   }, []);
 
-  // Send email after 2 minutes of inactivity
+  // Send email after 2 minutes of inactivity — only after a complete AI response
   useEffect(() => {
     if (messages.length === 0) return;
+    const lastMsg = messages[messages.length - 1];
+    // Only start the timer after an AI response, not a user message
+    if (lastMsg?.role !== 'assistant' || !lastMsg?.content) return;
     const timer = setTimeout(() => {
       const filteredMessages = messages.filter(m => m.role === 'user' || m.role === 'assistant') as { role: 'user' | 'assistant'; content: string; }[];
       sendConversationEmailIfNeeded(filteredMessages);
