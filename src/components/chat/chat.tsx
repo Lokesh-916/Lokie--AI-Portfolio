@@ -109,6 +109,12 @@ const Chat = () => {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [showLanding, setShowLanding] = useState(true);
+  const messagesRef = useRef<Message[]>([]);
+
+  // Keep ref in sync with state
+  useEffect(() => {
+    messagesRef.current = messages;
+  }, [messages]);
 
   // Helper to send message to backend and update state
   const sendMessage = async (userMessage: string) => {
@@ -123,8 +129,9 @@ const Chat = () => {
       content: userMessage,
     };
 
-    // Compute the new messages array
-    const newMessages = [...messages, userMsg];
+    // Use ref to get latest messages (avoids stale closure)
+    const currentMessages = messagesRef.current;
+    const newMessages = [...currentMessages, userMsg];
     setMessages(newMessages);
 
     try {
