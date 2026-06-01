@@ -10,7 +10,7 @@ interface OpenToWorkModalProps {
 
 const profile = {
   name: 'Lokesh Babu Kolamala',
-  age: '19 years old',
+  age: '20 years old',
   location: 'Vijayawada, Andhra Pradesh, India',
   description:
     "Hey! I'm Lokesh. I'm into AI, data stuff, and building projects that actually do something. Not a pro yet, but I keep trying new ideas, learning, and levelling up with every build.\n\nEx-Intern at Samsung Innovation Campus. Open to work — internships, startups, or anything meaningful. Currently working on AI Agents.",
@@ -18,7 +18,7 @@ const profile = {
   roles: [
     'AI Agent Developer',
     'Machine Learning Enthusiast',
-    'BTech AI & DS Student',
+    'B Tech AI & DS Student',
     'Open to Internships',
     'Project Builder',
     'Data Analyst',
