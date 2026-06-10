@@ -9,7 +9,7 @@ export function Experience() {
       title: 'Waiting for Approval',
       company: 'TBA',
       location: 'Remote',
-      period: '2025',
+      period: '2026',
       description: 'Application submitted. Awaiting approval for the next exciting opportunity!',
       technologies: ['Pending'],
     },
