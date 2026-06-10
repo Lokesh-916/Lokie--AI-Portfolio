@@ -18,7 +18,7 @@ export function Experience() {
       company: 'Forage AI India Pvt. Ltd.',
       location: 'Remote',
       period: 'June 2026 - Dec 2026',
-      description: 'Currently ongoing.',
+      description: 'Actively participating in an ongoing remote internship, contributing to the development and optimization of various artificial intelligence models and projects.',
       technologies: ['AI', 'Python'],
     },
     {
