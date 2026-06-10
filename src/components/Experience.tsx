@@ -19,7 +19,7 @@ export function Experience() {
       location: 'Remote',
       period: 'June 2026 - Dec 2026',
       description: 'Ongoing remote internship with a New York-based data extraction and automation company. Actively working on intelligent pipelines and exploring firsthand how artificial intelligence transforms and enhances the data extraction domain.',
-      technologies: ['AI', 'Python'],
+      technologies: ['AI', 'Python', 'Web Crawling', 'Data Extraction', 'AutoGen', 'SQL'],
     },
     {
       title: 'AI Intern',
@@ -82,7 +82,7 @@ export function Experience() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                   <Briefcase className="h-6 w-6" />
                 </div>
-                
+
                 <div className="flex-1 space-y-2">
                   <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                     <h3 className="text-lg font-semibold text-foreground">
@@ -93,18 +93,18 @@ export function Experience() {
                       <span>{experience.period}</span>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <MapPin className="h-4 w-4" />
                     <span className="font-medium">{experience.company}</span>
                     <span>•</span>
                     <span>{experience.location}</span>
                   </div>
-                  
+
                   <p className="text-sm leading-relaxed text-muted-foreground">
                     {experience.description}
                   </p>
-                  
+
                   <div className="flex flex-wrap gap-2 pt-2">
                     {experience.technologies.map((tech, techIndex) => (
                       <span
