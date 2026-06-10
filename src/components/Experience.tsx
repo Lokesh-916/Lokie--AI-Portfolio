@@ -14,6 +14,14 @@ export function Experience() {
       technologies: ['Pending'],
     },
     {
+      title: 'AI Developer Intern',
+      company: 'Forage AI India Pvt. Ltd.',
+      location: 'Remote',
+      period: 'June 2026 - Dec 2026',
+      description: 'Currently ongoing.',
+      technologies: ['AI', 'Python'],
+    },
+    {
       title: 'AI Intern',
       company: 'Infosys SpringBoard',
       location: 'Remote',
