@@ -19,6 +19,16 @@ export function ProjectsShowcase() {
       links: [],
     },
     {
+      title: 'Ongoing Work - Model Unlearning using Mechanistic Interpretability',
+      description: "Final-year research project on machine unlearning in LLMs, building on Dynamic SAE Guardrails (DSG), which uses sparse autoencoder features to selectively suppress hazardous knowledge in Gemma-2-2B. Reproduced the paper's core results on the WMDP bio and cyber benchmarks along with its ablations, and uncovered a padding-dilution attack that bypasses the guardrail. Now stress-testing DSG across multiple attack axes to show it hides knowledge rather than erasing it, explaining each failure mechanistically through probes and SAE feature analysis, and developing a hardened gate and weight-level erasure that hold up against these attacks and relearning.",
+      image: '/Coming-Soon.png',
+      tech: ['LLMs', 'Mechanistic Interpretability', 'Sparse Autoencoders', 'Machine Unlearning', 'AI Safety', 'PyTorch', 'TransformerLens', 'SAE Lens', 'Gemma'],
+      year: '2026',
+      links: [
+        { name: 'GitHub', url: 'https://github.com/Lokesh-916/Model-Unlearning-Using-SAEs', icon: Github },
+      ],
+    },
+    {
       title: 'AdaptIQ',
       description: 'An AI-powered adaptive learning and career guidance platform that creates a dynamic loop between a user\'s skills, aspirations, and real-time AI mentorship. Dynamically generates personalized quizzes that scale difficulty based on inferred comprehension, visualizes career roadmaps and skill trees via Mermaid.js, and ingests past learning history from ChatGPT/Gemini exports via Multer. Uses a strict 1500-token context window strategy with rolling summaries to maintain long-term behavioral profiles without bloating LLM context.',
       image: '/adaptiq.png',
