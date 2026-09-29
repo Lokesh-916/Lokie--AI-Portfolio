@@ -18,7 +18,7 @@ export function Experience() {
       company: 'Forage AI India Pvt. Ltd.',
       location: 'Remote',
       period: 'June 2026 - Dec 2026',
-      description: 'Ongoing remote internship with a New York-based data extraction and automation company. Actively working on intelligent pipelines and exploring firsthand how artificial intelligence transforms and enhances the data extraction domain.',
+      description: 'Ongoing remote internship with a New York-based data extraction and automation company, building AI-driven extraction workflows for private equity portfolio data. Improving the accuracy and reliability of extraction agents by analyzing failure patterns, restructuring agent workflows, benchmarking state-of-the-art LLMs, and adding validation strategies to reduce hallucinations, duplicates, and missing entities.',
       technologies: ['AI', 'Python', 'Web Crawling', 'Data Extraction', 'AutoGen', 'SQL'],
     },
     {
