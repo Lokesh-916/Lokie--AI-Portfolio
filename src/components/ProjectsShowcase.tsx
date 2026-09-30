@@ -21,7 +21,7 @@ export function ProjectsShowcase() {
     {
       title: 'Ongoing Work - Model Unlearning using Mechanistic Interpretability',
       description: "Final-year research project on machine unlearning in LLMs, building on Dynamic SAE Guardrails (DSG), which uses sparse autoencoder features to selectively suppress hazardous knowledge in Gemma-2-2B. Reproduced the paper's core results on the WMDP bio and cyber benchmarks along with its ablations, and uncovered a padding-dilution attack that bypasses the guardrail. Now stress-testing DSG across multiple attack axes to show it hides knowledge rather than erasing it, explaining each failure mechanistically through probes and SAE feature analysis, and developing a hardened gate and weight-level erasure that hold up against these attacks and relearning.",
-      image: '/Coming-Soon.png',
+      image: '/dsg.png',
       tech: ['LLMs', 'Mechanistic Interpretability', 'Sparse Autoencoders', 'Machine Unlearning', 'AI Safety', 'PyTorch', 'TransformerLens', 'SAE Lens', 'Gemma'],
       year: '2026',
       links: [
