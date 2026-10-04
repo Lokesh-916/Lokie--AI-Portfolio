@@ -1,5 +1,5 @@
 import Groq from "groq-sdk";
-import { SYSTEM_PROMPT, CLASSIFIER_PROMPT, OUT_OF_SCOPE_REPLY } from "./prompt";
+import { SYSTEM_PROMPT, CLASSIFIER_PROMPT, OUT_OF_SCOPE_REPLY, FEATURED_PROJECTS } from "./prompt";
 
 interface Message {
   role: string;
@@ -54,6 +54,15 @@ async function isInScope(groq: Groq, messages: Message[]) {
   }
 }
 
+function pickFeaturedProjects(count = 3) {
+  const pool = [...FEATURED_PROJECTS];
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool.slice(0, count);
+}
+
 function jsonResponse(body: object, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
@@ -92,7 +101,11 @@ export async function POST(req: Request) {
     }
 
     // Add system prompt to the beginning of messages
-    const messagesWithSystem = [SYSTEM_PROMPT, ...cleanMessages];
+    const systemPrompt = {
+      ...SYSTEM_PROMPT,
+      content: `${SYSTEM_PROMPT.content}\n## Featured projects for this reply\n\n${pickFeaturedProjects().join(", ")}\n`,
+    };
+    const messagesWithSystem = [systemPrompt, ...cleanMessages];
 
     // messages should be an array of { role: 'user' | 'assistant' | 'system', content: string }
     let completion;
