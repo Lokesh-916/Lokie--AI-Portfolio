@@ -11,7 +11,7 @@ import {
 import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation'; // Importation correcte pour Next.js 13+
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 // Added a trigger prop to accept custom triggers

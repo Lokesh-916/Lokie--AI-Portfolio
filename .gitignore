@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# OS / editor files
+desktop.ini
+Thumbs.db
+.vscode/
+
+# local browser-test output
+.playwright-mcp/
