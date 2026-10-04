@@ -9,6 +9,9 @@ interface Message {
 
 export const maxDuration = 30;
 
+const CHAT_MODELS = ["openai/gpt-oss-120b", "llama-3.3-70b-versatile"];
+const EMPTY_REPLY = "Sorry, I blanked out for a second there. Could you ask that again?";
+
 const MAX_HISTORY = 12;
 const MAX_MESSAGE_CHARS = 1000;
 
@@ -114,44 +117,49 @@ export async function POST(req: Request) {
     };
     const messagesWithSystem = [systemPrompt, ...cleanMessages];
 
-    let completion;
-    try {
-      completion = await groq.chat.completions.create({
-        model: "openai/gpt-oss-120b",
-        messages: messagesWithSystem,
-        stream: true,
-      });
-    } catch (primaryError) {
-      // Fallback to llama if primary model fails
-      completion = await groq.chat.completions.create({
-        model: "llama-3.3-70b-versatile",
-        messages: messagesWithSystem,
-        stream: true,
-      });
-    }
-
     const encoder = new TextEncoder();
     const stream = new ReadableStream({
       async start(controller) {
         let sent = "";
-        try {
-          for await (const chunk of completion) {
-            const text = chunk.choices?.[0]?.delta?.content;
-            if (!text) continue;
 
-            // The portfolio bot never needs to output code, so treat a code block as a guardrail slip
-            if ((sent + text).includes("```")) {
-              controller.enqueue(encoder.encode(REPLACE_MARKER + OUT_OF_SCOPE_REPLY));
-              break;
+        // Try each model in turn; fall back if one errors or finishes without any text
+        for (const model of CHAT_MODELS) {
+          try {
+            const completion = await groq.chat.completions.create({
+              model,
+              messages: messagesWithSystem,
+              stream: true,
+            });
+
+            for await (const chunk of completion) {
+              const text = chunk.choices?.[0]?.delta?.content;
+              if (!text) continue;
+
+              // The portfolio bot never needs to output code, so treat a code block as a guardrail slip
+              if ((sent + text).includes("```")) {
+                controller.enqueue(encoder.encode(REPLACE_MARKER + OUT_OF_SCOPE_REPLY));
+                controller.close();
+                return;
+              }
+
+              sent += text;
+              controller.enqueue(encoder.encode(text));
             }
-
-            sent += text;
-            controller.enqueue(encoder.encode(text));
+          } catch (error) {
+            // Text has already reached the visitor, so a retry would duplicate it
+            if (sent) {
+              controller.error(error);
+              return;
+            }
           }
-          controller.close();
-        } catch (error) {
-          controller.error(error);
+
+          if (sent) break;
         }
+
+        if (!sent) {
+          controller.enqueue(encoder.encode(EMPTY_REPLY));
+        }
+        controller.close();
       },
     });
 
