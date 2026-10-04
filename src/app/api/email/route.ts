@@ -1,13 +1,51 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { sendConversationEmail, ConversationEmailData } from '@/lib/email';
+import { sendConversationEmail, ConversationMessage } from '@/lib/email';
 
-// Track sent emails to prevent duplicates (in-memory cache)
-const sentEmails = new Set<string>();
+const MAX_MESSAGES = 50;
+const MAX_MESSAGE_CHARS = 2000;
+
+// Only accept requests sent by the portfolio's own pages
+function isSameOrigin(req: NextRequest) {
+  const origin = req.headers.get('origin');
+  const host = req.headers.get('host');
+  if (!origin || !host) return false;
+  try {
+    return new URL(origin).host === host;
+  } catch {
+    return false;
+  }
+}
+
+// Keep only well-formed user/assistant messages and cap their size
+function parseMessages(input: unknown): ConversationMessage[] | null {
+  if (!Array.isArray(input) || input.length === 0 || input.length > MAX_MESSAGES) {
+    return null;
+  }
+
+  const messages: ConversationMessage[] = [];
+  for (const msg of input) {
+    if (
+      !msg ||
+      (msg.role !== 'user' && msg.role !== 'assistant') ||
+      typeof msg.content !== 'string'
+    ) {
+      return null;
+    }
+    messages.push({
+      role: msg.role,
+      content: msg.content.slice(0, MAX_MESSAGE_CHARS),
+      timestamp: new Date().toISOString(),
+    });
+  }
+  return messages;
+}
 
 export async function POST(req: NextRequest) {
   try {
+    if (!isSameOrigin(req)) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
 
-    
     // Check if Resend API key is configured
     if (!process.env.RESEND_API_KEY) {
       console.error('RESEND_API_KEY is not configured');
@@ -26,32 +64,13 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { messages, userInfo, sessionId }: ConversationEmailData & { sessionId?: string } = body;
-
-
-
-    // Validate required data
-    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+    const messages = parseMessages(body?.messages);
+    if (!messages) {
       return NextResponse.json(
-        { error: 'Messages array is required and cannot be empty' },
+        { error: `Messages must be a non-empty array of up to ${MAX_MESSAGES} user/assistant messages` },
         { status: 400 }
       );
     }
-
-    // Check if we've already sent an email for this session
-    if (sessionId && sentEmails.has(sessionId)) {
-
-      return NextResponse.json(
-        { success: true, message: 'Email already sent for this session' },
-        { status: 200 }
-      );
-    }
-
-    // Add timestamp if not provided
-    const messagesWithTimestamps = messages.map(msg => ({
-      ...msg,
-      timestamp: msg.timestamp || new Date().toISOString()
-    }));
 
     // Get user info from request headers
     const clientUserInfo = {
@@ -60,29 +79,20 @@ export async function POST(req: NextRequest) {
       timestamp: new Date().toISOString()
     };
 
-    // Send email
     const result = await sendConversationEmail({
-      messages: messagesWithTimestamps,
+      messages,
       userInfo: clientUserInfo
     });
 
     if (result.success) {
-      // Mark this session as sent
-      if (sessionId) {
-        sentEmails.add(sessionId);
-
-      }
-      
       return NextResponse.json(
-        { success: true, message: 'Email sent successfully', id: result.id },
+        { success: true, message: 'Email sent successfully' },
         { status: 200 }
       );
-    } else {
-      return NextResponse.json(
-        { error: 'Failed to send email', details: result.error },
-        { status: 500 }
-      );
     }
+
+    console.error('Failed to send conversation email:', result.error);
+    return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
   } catch (error) {
     console.error('Email API error:', error);
     return NextResponse.json(
@@ -90,4 +100,4 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   }
-} 
+}

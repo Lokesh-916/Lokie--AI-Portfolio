@@ -2,6 +2,16 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Everything inserted into the email comes from visitors, so escape it before it becomes HTML
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 export interface ConversationMessage {
   role: 'user' | 'assistant';
   content: string;
@@ -54,7 +64,7 @@ function formatConversationForEmail(messages: ConversationMessage[]): string {
             <span style="font-size: 12px; color: #6b7280; margin-left: 10px;">${formattedTime}</span>
           </div>
           <div style="color: #374151; line-height: 1.6; white-space: pre-wrap;">
-            ${message.content.replace(/\n/g, '<br>')}
+            ${escapeHtml(message.content).replace(/\n/g, '<br>')}
           </div>
         </div>
       `;
@@ -86,8 +96,8 @@ function generateEmailTemplate(conversationHtml: string, userInfo?: any): string
           <h3 style="margin: 0 0 10px 0; color: #374151;">📊 Conversation Details</h3>
           <div style="font-size: 14px; color: #6b7280;">
             <p><strong>Time:</strong> ${new Date(userInfo.timestamp).toLocaleString()}</p>
-            ${userInfo.ip ? `<p><strong>IP Address:</strong> ${userInfo.ip}</p>` : ''}
-            ${userInfo.userAgent ? `<p><strong>User Agent:</strong> ${userInfo.userAgent}</p>` : ''}
+            ${userInfo.ip ? `<p><strong>IP Address:</strong> ${escapeHtml(userInfo.ip)}</p>` : ''}
+            ${userInfo.userAgent ? `<p><strong>User Agent:</strong> ${escapeHtml(userInfo.userAgent)}</p>` : ''}
           </div>
         </div>
       ` : ''}
