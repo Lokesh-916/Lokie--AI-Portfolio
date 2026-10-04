@@ -41,6 +41,10 @@ export async function sendConversationEmail(data: ConversationEmailData) {
       html: generateEmailTemplate(conversationHtml, userInfo),
     });
 
+    // Resend reports failures in the result instead of throwing
+    if (emailResult.error) {
+      return { success: false, error: emailResult.error.message };
+    }
 
     return { success: true, id: emailResult.data?.id };
   } catch (error) {
