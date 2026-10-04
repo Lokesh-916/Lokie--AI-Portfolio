@@ -7,6 +7,7 @@ import { toast } from 'sonner';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { sendConversationEmailIfNeeded, resetEmailSentFlag } from '@/lib/chat-utils';
+import { REPLACE_MARKER } from '@/lib/chat-stream';
 
 // Component imports
 import ChatBottombar from '@/components/chat/chat-bottombar';
@@ -156,19 +157,35 @@ const Chat = () => {
         throw new Error(errorMessage);
       }
 
-      const data = await response.json();
-      
-      // Check if the response contains an error field
-      if (data.error) {
-        throw new Error(data.error);
+      if (!response.body) {
+        throw new Error('Empty response from server');
       }
-      
-      const aiMsg: Message = {
-        id: Date.now().toString() + Math.random().toString(36).slice(2),
-        role: 'assistant',
-        content: data.content || '',
-      };
-      setMessages((prev) => [...prev, aiMsg]);
+
+      // Stream the reply into a single assistant message as chunks arrive
+      const aiId = Date.now().toString() + Math.random().toString(36).slice(2);
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let received = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        received += decoder.decode(value, { stream: true });
+
+        const markerIndex = received.lastIndexOf(REPLACE_MARKER);
+        const visible = markerIndex >= 0 ? received.slice(markerIndex + 1) : received;
+        if (!visible) continue;
+
+        setMessages((prev) =>
+          prev.some((m) => m.id === aiId)
+            ? prev.map((m) => (m.id === aiId ? { ...m, content: visible } : m))
+            : [...prev, { id: aiId, role: 'assistant', content: visible }]
+        );
+      }
+
+      if (!received) {
+        throw new Error('Empty response from server');
+      }
     } catch (err: any) {
       const errorMessage = err?.message || 'Unknown error occurred';
       toast.error('Error: ' + errorMessage);
@@ -401,7 +418,7 @@ const Chat = () => {
                 </ChatBubble>
               </div>
             ))}
-            {loadingSubmit && (
+            {loadingSubmit && messages[messages.length - 1]?.role === 'user' && (
               <div className="pb-4">
                 <ChatBubble variant="received">
                   <ChatBubbleMessage isLoading />

@@ -1,5 +1,6 @@
 import Groq from "groq-sdk";
 import { SYSTEM_PROMPT, CLASSIFIER_PROMPT, OUT_OF_SCOPE_REPLY, FEATURED_PROJECTS } from "./prompt";
+import { REPLACE_MARKER } from "@/lib/chat-stream";
 
 interface Message {
   role: string;
@@ -63,6 +64,12 @@ function pickFeaturedProjects(count = 3) {
   return pool.slice(0, count);
 }
 
+function textResponse(text: string) {
+  return new Response(text, {
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  });
+}
+
 function jsonResponse(body: object, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
@@ -97,7 +104,7 @@ export async function POST(req: Request) {
     }
 
     if (!(await isInScope(groq, cleanMessages))) {
-      return jsonResponse({ content: OUT_OF_SCOPE_REPLY });
+      return textResponse(OUT_OF_SCOPE_REPLY);
     }
 
     // Add system prompt to the beginning of messages
@@ -107,29 +114,50 @@ export async function POST(req: Request) {
     };
     const messagesWithSystem = [systemPrompt, ...cleanMessages];
 
-    // messages should be an array of { role: 'user' | 'assistant' | 'system', content: string }
     let completion;
     try {
       completion = await groq.chat.completions.create({
         model: "openai/gpt-oss-120b",
         messages: messagesWithSystem,
+        stream: true,
       });
     } catch (primaryError) {
       // Fallback to llama if primary model fails
       completion = await groq.chat.completions.create({
         model: "llama-3.3-70b-versatile",
         messages: messagesWithSystem,
+        stream: true,
       });
     }
 
-    let content = completion.choices?.[0]?.message?.content || "";
+    const encoder = new TextEncoder();
+    const stream = new ReadableStream({
+      async start(controller) {
+        let sent = "";
+        try {
+          for await (const chunk of completion) {
+            const text = chunk.choices?.[0]?.delta?.content;
+            if (!text) continue;
 
-    // The portfolio bot never needs to output code, so treat a code block as a guardrail slip
-    if (content.includes("```")) {
-      content = OUT_OF_SCOPE_REPLY;
-    }
+            // The portfolio bot never needs to output code, so treat a code block as a guardrail slip
+            if ((sent + text).includes("```")) {
+              controller.enqueue(encoder.encode(REPLACE_MARKER + OUT_OF_SCOPE_REPLY));
+              break;
+            }
 
-    return jsonResponse({ content });
+            sent += text;
+            controller.enqueue(encoder.encode(text));
+          }
+          controller.close();
+        } catch (error) {
+          controller.error(error);
+        }
+      },
+    });
+
+    return new Response(stream, {
+      headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-cache" },
+    });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     return new Response(
