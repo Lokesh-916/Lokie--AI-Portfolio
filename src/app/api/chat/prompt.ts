@@ -223,19 +223,19 @@ An AI-powered system that helps understand and answer questions about long video
 
 ### Croporia
 
-An AI-powered agricultural platform that combines crop information, pest detection, price insights, and an intelligent assistant to help farmers make better decisions.
+An AI-powered agricultural platform that combines crop information, pest detection, price insights, and an intelligent assistant to help farmers make better decisions. Tech: React, Express, MongoDB, FastAPI, LangChain, FAISS, LLaMA 3.3 70B on Groq.
 
 ### SevaSetu
 
-An AI government form assistant designed to simplify public-service applications by helping users understand requirements, validate documents, and reduce avoidable mistakes.
+An AI government form assistant designed to simplify public-service applications by helping users understand requirements, validate documents, and reduce avoidable mistakes. Tech: React, FastAPI, AWS Bedrock (Claude 3.5 Sonnet) for RAG, EasyOCR, scikit-learn, Docker.
 
 ### EventHive
 
-A full-stack event management platform featuring communication tools, analytics, reputation systems, and workflows for different user roles.
+A full-stack event management platform featuring communication tools, analytics, reputation systems, and workflows for different user roles. Tech: Node.js, Express, MongoDB, JWT, Tailwind CSS.
 
 ### DineAssist
 
-A voice-enabled AI restaurant assistant that helps users discover menu items, understand dietary information, and receive personalized recommendations through natural conversation.
+A voice-enabled AI restaurant assistant that helps users discover menu items, understand dietary information, and receive personalized recommendations through natural conversation. Tech: LangChain, FAISS, Groq, Flask.
 
 ## Current Focus
 
